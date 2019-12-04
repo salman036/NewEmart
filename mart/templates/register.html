@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <section class="signup">
+
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Sign up</h2>
+                <form method="POST" class="register-form" id="register-form" autocomplete="off">
+                    {{ form.hidden_tag() }}
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i></label>
+                            <span id="name">
+                                {% if form.name.errors %}
+                                    {{ form.name(placeholder="Your Name") }}
+                                    {% for error in form.name.errors %}
+                                        <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.name(placeholder="Your Name") }}
+                                {% endif %}
+                        </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="username"><i class="fas fa-user"></i></label>
+                            <span id="username">
+                                {% if form.username.errors %}
+                                    {{ form.username(placeholder="Your UserName") }}
+                                    {% for error in form.username.errors %}
+                                        <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.username(placeholder="Your UserName") }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i></label>
+                            <span id="email">
+                                {% if form.email.errors %}
+                                    {{ form.email(placeholder="Your Email") }}
+                                    {% for error in form.email.errors %}
+                                        <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.email(placeholder="Your Email") }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="fas fa-lock"></i></label>
+                            <span id="password">
+                                {% if form.password.errors %}
+                                    {{ form.password(placeholder="Your Password") }}
+                                    {% for error in form.password.errors %}
+                                        <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.password(placeholder="Your Password") }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password"><i class="fas fa-lock"></i></label>
+                            <span id="confirm_password">
+                            {% if form.confirm_password.errors %}
+                                {{ form.confirm_password(placeholder="Repeat Your Name") }}
+                                {% for error in form.confirm_password.errors %}
+                                    <div class="alert-message block-message error">
+                                    <span class="badge badge-danger">
+                                        {{ error }}
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                {{ form.confirm_password(placeholder="Repeat Your Name") }}
+                            {% endif %}
+                        </span>
+                        </div>
+
+                        <div class="form-group form-button">
+                            {{ form.submit(class="form-submit") }}
+                            <!--                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>-->
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="signup-image">
+                <figure><img src="{{ url_for('static', filename='images/signup-image.jpg') }}" alt="sing up image">
+                </figure>
+                <a href="{{ url_for('user.login') }}" class="signup-image-link">I am already member</a>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

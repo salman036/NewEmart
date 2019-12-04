@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form>
+        {% for user in user_post %}
+            {% if user.status == False %}
+                <h6>null</h6>
+
+            {% else %}
+                <div class="form-group">
+                    <h4>{{ user.title }}</h4>
+                    <h5>{{ user.content }}</h5>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </form>
+{% endblock %}

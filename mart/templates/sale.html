@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <section class="sign-in">
+        <div class="signin-content">
+
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    <div class="row">
+
+                        <div class="col-xl-3 col-sm-5 mb-3">
+
+                            <div class="form-group">
+
+                                <select name="select_value" class="btn btn-success dropdown-toggle btn-sm"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <option>--Select Product--</option>
+                                    {% for produt in produts %}
+                                        <option>{{ produt.name }}</option>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-5 mb-3" style="width: 1px">
+                            {{ form.unit(placeholder="Unit") }}
+                        </div>
+                        <div class="col-xl-2 col-sm-5 mb-3">
+                            {{ form.quantity(placeholder="Quanity") }}
+                        </div>
+                        <div class="col-xl-2 col-sm-5 mb-3">
+                            {{ form.total(placeholder="Total") }}
+                        </div>
+                        <div class="col-xl-2 col-sm-5 mb-3" style="text-align: center">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+{% endblock %}

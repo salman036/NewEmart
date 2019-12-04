@@ -1,0 +1,31 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+
+
+<div class="container" style="text-align: center">
+    {% for cat in all_cat %}
+        <h2>Card Image</h2>
+        <p>Image at the top (card-img-top):</p>
+        <div class="card" style="width: 400px">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/'+ cat.image_file) }}"
+                 alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="{{ url_for('front_web.show_sub_cat', sub_id=cat.name) }}" class="btn btn-primary">Read more >>></a>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+    <a href="{{ url_for('front_web.front_post') }}">Add front Post</a>
+    <a href="{{ url_for('front_web.show_user_post') }}">Show User Posts</a>
+
+</div>
+</center>
+</body>

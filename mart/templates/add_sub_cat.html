@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="sign-in">
+        <div class="signin-content">
+            <div class="signin-image">
+                <center>
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-body">
+                            <form method="post" style="text-align: center" enctype="multipart/form-data"
+                                  autocomplete="off">
+                                {{ form.hidden_tag() }}
+                                <fieldset>
+                                    <legend>{{ legend }}</legend>
+                                    <div class="form-group">
+                                        <select name="select_value" class="btn btn-success dropdown-toggle btn-sm"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {% for cat in categories %}
+                                                <option>{{ cat.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        {% if form.name.errors %}
+                                            {{ form.name(placeholder="Your sub category", style="text-align: center") }}
+                                            {% for error in form.name.errors %}
+                                                <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            {{ form.name(placeholder="Your sub category", style="text-align: center") }}
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {% if form.image_file.errors %}
+                                            {{ form.image_file(placeholder="Upload Image", class="file_upload") }}
+                                            {% for error in form.image_file.errors %}
+                                                <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="file-upload-wrapper">
+                                                {{ form.image_file(placeholder="Upload Image", class="file_upload") }}
+                                            </div>
+
+                                        {% endif %}
+                                    </div>
+                                </fieldset>
+                                <br>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-primary") }}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </section>
+
+
+    {% if title != 'Update Sub Cat' %}
+        <h4>Sub category table</h4>
+        <hr>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Categories</th>
+                    <th scope="col">Sub Categories</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Create At</th>
+                    <th scope="col">Actions</th>
+                    <th scope="col">Status</th>
+
+                </tr>
+                </thead>
+                {% for sub_cat in sub_catagories %}
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ sub_cat.id }}</th>
+                        <td>{{ sub_cat.categories_id }}</td>
+                        <td>{{ sub_cat.name }}</td>
+                        <td><img src="{{ url_for('static', filename='images/' + sub_cat.image_file) }}"
+                                 class="account-img rounded-circle"></td>
+                        <td>{{ sub_cat.create_at.strftime('%Y, %m, %d') }}</td>
+                        <td style="text-align: center">
+                            <a href="{{ url_for('categ.delete_sub_cat', id=sub_cat.id) }}"><i class="fas fa-trash"></i></a>
+                            <a href="{{ url_for('categ.update_sub_cat', sub_catID=sub_cat.id ) }}"><i
+                                    class="fas fa-pen-square"></i></a>
+                        </td>
+                        <td>
+                            <div class="form-group" style="text-align: center">
+                                {% if sub_cat.deleted == False %}
+                                    <a href="{{ url_for('categ.active_sub_cat', id=sub_cat.id) }}">Active <i
+                                            class="fas fa-flag"></i></a>
+                                {% else %}
+                                    <a href="{{ url_for('categ.active_sub_cat', id=sub_cat.id) }}">In Active <i
+                                            class="far fa-flag"></i></a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+
+        </div>
+    {% endif %}
+    <br>
+    <br>
+    <style>
+        .my-custom-scrollbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+
+    </style>
+    <script src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-file-upload.min.js"></script>
+    <script>$('.file_upload').file_upload();</script>
+
+{% endblock %}

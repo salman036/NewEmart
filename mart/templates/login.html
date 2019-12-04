@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<section class="sign-in">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="{{ url_for('static', filename='images/signin-image.jpg')}}" alt="sing up image">
+                </figure>
+                <a href="{{ url_for('user.register')}}" class="signup-image-link">Create an account</a>
+            </div>
+
+            <div class="signin-form">
+                <h2 class="form-title">Sign In</h2>
+                <form method="POST" autocomplete="off">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i></label>
+                        <span id="email">
+                                {% if form.email.errors %}
+                                {{ form.email(placeholder="Your Email")}}
+                                {% for error in form.email.errors %}
+                                    <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                    </div>
+                                {% endfor %}
+                                {% else %}
+                                    {{ form.email(placeholder="Your Email")}}
+                                {% endif %}
+                            </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i></label>
+                        <span id="password">
+                                {% if form.password.errors %}
+                                {{ form.password(placeholder="Your Password")}}
+                                {% for error in form.password.errors %}
+                                    <div class="alert-message block-message error">
+                                        <span class="badge badge-danger">
+                                            {{ error }}
+                                        </span>
+                                    </div>
+                                {% endfor %}
+                                {% else %}
+                                    {{ form.password(placeholder="Your Password")}}
+                                {% endif %}
+                            </span>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                    </div>
+                </form>
+                <div class="social-login">
+                    <ul class="socials">
+                        <li><a href="{{ url_for('user.reset_request')}}"><i class="display-flex-center zmdi zmdi-facebook fa fa-key"></i></a></li>
+
+                        <label class="label-agree-term"><span><span></span></span>Forgot Password</label>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+</section>
+
+
+{% endblock %}
